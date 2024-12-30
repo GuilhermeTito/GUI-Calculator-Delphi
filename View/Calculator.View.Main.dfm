@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   BorderStyle = bsSingle
   Caption = 'frmMain'
-  ClientHeight = 250
+  ClientHeight = 280
   ClientWidth = 370
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -155,5 +155,37 @@ object frmMain: TfrmMain
     Height = 23
     Alignment = taRightJustify
     TabOrder = 0
+  end
+  object btnChangeSign: TButton
+    Left = 20
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = '+/-'
+    TabOrder = 17
+  end
+  object btn0: TButton
+    Left = 105
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = '0'
+    TabOrder = 18
+  end
+  object btnDecimalSeparator: TButton
+    Left = 190
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = ','
+    TabOrder = 19
+  end
+  object btnEquals: TButton
+    Left = 275
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = '='
+    TabOrder = 20
   end
 end

@@ -7,6 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
+  TOperation = (opNone, opAddition, opSubtraction, opMultiplication, opDivision);
+
   TfrmMain = class(TForm)
     btnClearEntry: TButton;
     btnClear: TButton;
@@ -26,6 +28,10 @@ type
     btnAddition: TButton;
     edtResult: TEdit;
     lblOperation: TLabel;
+    btnChangeSign: TButton;
+    btn0: TButton;
+    btnDecimalSeparator: TButton;
+    btnEquals: TButton;
   private
     { Private declarations }
   public
