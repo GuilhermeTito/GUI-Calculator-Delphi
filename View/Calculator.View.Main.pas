@@ -55,7 +55,11 @@ type
     procedure FormCreate(Sender: TObject);
   private
     FOperation: TOperation;
+    FFirstNumber: Extended;
     procedure AppendToNumber(const AText: string);
+    procedure SelectOperation(const AOperation: TOperation);
+    procedure EnableOperationButtons;
+    procedure DisableOperationButtons;
   public
     { Public declarations }
   end;
@@ -127,7 +131,7 @@ end;
 
 procedure TfrmMain.btnAdditionClick(Sender: TObject);
 begin
-//
+  SelectOperation(opAddition);
 end;
 
 procedure TfrmMain.btnBackspaceClick(Sender: TObject);
@@ -149,12 +153,16 @@ end;
 
 procedure TfrmMain.btnClearClick(Sender: TObject);
 begin
-//
+  FOperation := opNone;
+  lblOperation.Caption := '';
+  edtResult.Clear;
+
+  EnableOperationButtons;
 end;
 
 procedure TfrmMain.btnClearEntryClick(Sender: TObject);
 begin
-//
+  edtResult.Clear;
 end;
 
 procedure TfrmMain.btnDecimalSeparatorClick(Sender: TObject);
@@ -164,27 +172,96 @@ end;
 
 procedure TfrmMain.btnDivisionClick(Sender: TObject);
 begin
-//
+  SelectOperation(opDivision);
 end;
 
 procedure TfrmMain.btnEqualsClick(Sender: TObject);
+var
+  LSecondNumber, LResult: Extended;
 begin
-//
+  if Trim(edtResult.Text).IsEmpty then
+    Exit;
+
+  LSecondNumber := StrToFloatDef(edtResult.Text, 0);
+
+  if (FOperation = opDivision) and (LSecondNumber = 0) then
+  begin
+    ShowMessage('Division by 0 is not possible.');
+    Exit;
+  end;
+
+  edtResult.Clear;
+  lblOperation.Caption := lblOperation.Caption + ' ' + FloatToStr(LSecondNumber) + ' =';
+
+  case FOperation of
+    opAddition: LResult := FFirstNumber + LSecondNumber;
+    opSubtraction: LResult := FFirstNumber - LSecondNumber;
+    opMultiplication: LResult := FFirstNumber * LSecondNumber;
+    opDivision: LResult := FFirstNumber / LSecondNumber;
+  end;
+
+  edtResult.Text := FloatToStr(LResult);
+
+  EnableOperationButtons;
 end;
 
 procedure TfrmMain.btnMultiplicationClick(Sender: TObject);
 begin
-//
+  SelectOperation(opMultiplication);
 end;
 
 procedure TfrmMain.btnSubtractionClick(Sender: TObject);
 begin
-//
+  SelectOperation(opSubtraction);
+end;
+
+procedure TfrmMain.DisableOperationButtons;
+begin
+  btnDivision.Enabled := False;
+  btnMultiplication.Enabled := False;
+  btnSubtraction.Enabled := False;
+  btnAddition.Enabled := False;
+
+  btnEquals.Enabled := True;
+end;
+
+procedure TfrmMain.EnableOperationButtons;
+begin
+  btnDivision.Enabled := True;
+  btnMultiplication.Enabled := True;
+  btnSubtraction.Enabled := True;
+  btnAddition.Enabled := True;
+
+  btnEquals.Enabled := False;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   FOperation := opNone;
+end;
+
+procedure TfrmMain.SelectOperation(const AOperation: TOperation);
+begin
+  if AOperation = opNone then
+    Exit;
+
+  if Trim(edtResult.Text).IsEmpty then
+    Exit;
+
+  FOperation := AOperation;
+  FFirstNumber := StrToFloatDef(edtResult.Text, 0);
+
+  edtResult.Clear;
+  lblOperation.Caption := FloatToStr(FFirstNumber) + ' ';
+
+  case FOperation of
+    opAddition: lblOperation.Caption := lblOperation.Caption + '+';
+    opSubtraction: lblOperation.Caption := lblOperation.Caption + '-';
+    opMultiplication: lblOperation.Caption := lblOperation.Caption + '*';
+    opDivision: lblOperation.Caption := lblOperation.Caption + '/';
+  end;
+
+  DisableOperationButtons;
 end;
 
 end.

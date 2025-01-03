@@ -206,6 +206,7 @@ object frmMain: TfrmMain
     Width = 75
     Height = 25
     Caption = '='
+    Enabled = False
     TabOrder = 20
     OnClick = btnEqualsClick
   end
