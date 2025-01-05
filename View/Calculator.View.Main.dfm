@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   BorderStyle = bsSingle
-  Caption = 'frmMain'
+  Caption = 'Calculator'
   ClientHeight = 280
   ClientWidth = 370
   Color = clBtnFace

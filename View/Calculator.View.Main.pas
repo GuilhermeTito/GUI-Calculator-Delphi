@@ -192,6 +192,7 @@ begin
 
   edtResult.Clear;
   lblOperation.Caption := lblOperation.Caption + ' ' + FloatToStr(LSecondNumber) + ' =';
+  LResult := 0;
 
   case FOperation of
     opAddition: LResult := FFirstNumber + LSecondNumber;
